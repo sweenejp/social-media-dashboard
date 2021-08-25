@@ -106,7 +106,7 @@ body {
 .social-views {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   margin-bottom: 44px;
 }
 
@@ -186,7 +186,7 @@ body {
 .overviews {
   display: grid;
   gap: 24px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   margin-bottom: 44px;
 }
 .overviews__label {
@@ -238,7 +238,7 @@ body {
   padding: unset;
 }
 
-@media screen and (min-width: 540px) {
+@media screen and (min-width: 557px) {
   .header {
     flex-direction: row;
     justify-content: space-between;
