@@ -24,6 +24,7 @@ ul {
   --bg-color: hsl(0, 0%, 100%);
   --top-bg-pattern-color: hsl(225, 100%, 98%);
   --card-bg-color: hsl(227, 47%, 96%);
+  --card-bg-color-hover: #e1e4f0;
   --font-color-1: hsl(228, 12%, 44%);
   --font-color-2: hsl(230, 17%, 14%);
   --header-border-bottom: hsl(230, 19%, 60%);
@@ -51,6 +52,10 @@ body {
   padding: 2rem 0;
 }
 
+.header {
+  display: flex;
+  flex-direction: column;
+}
 .header__title-section {
   border-bottom: solid 1px var(--header-border-bottom);
 }
@@ -71,7 +76,9 @@ body {
   font-size: 1rem;
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
   padding: 21px 0 30px 0;
+  align-items: center;
 }
 .theme-switcher__switch-outer {
   border-radius: 24px;
@@ -80,6 +87,7 @@ body {
   border: none;
   background: var(--toggle);
   position: relative;
+  cursor: pointer;
 }
 .theme-switcher__switch-inner {
   width: 18px;
@@ -96,21 +104,25 @@ body {
 }
 
 .social-views {
-  display: flex;
+  display: grid;
   gap: 24px;
-  flex-direction: column;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin-bottom: 44px;
 }
 
-.social-view {
+.social-view-item {
+  cursor: pointer;
   width: 100%;
   display: flex;
   text-align: center;
   flex-direction: column;
-  --background-size: 1%, 33%;
   border-radius: 5px;
   background-color: var(--card-bg-color);
 }
-.social-view::before {
+.social-view-item:hover, .social-view-item:focus {
+  background-color: var(--card-bg-color-hover);
+}
+.social-view-item::before {
   content: "";
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
@@ -118,35 +130,35 @@ body {
   width: 100%;
   height: 4px;
 }
-.social-view--facebook::before {
+.social-view-item--facebook::before {
   background-color: var(--facebook);
 }
-.social-view--twitter::before {
+.social-view-item--twitter::before {
   background-color: var(--twitter);
 }
-.social-view--instagram::before {
+.social-view-item--instagram::before {
   background: var(--instagram);
 }
-.social-view--youtube::before {
+.social-view-item--youtube::before {
   background-color: var(--youtube);
 }
-.social-view__flex {
+.social-view-item__flex {
   display: flex;
   padding: 24px;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-.social-view__handle {
+.social-view-item__handle {
   font-size: 12px;
   color: var(--font-color-1);
 }
-.social-view__data {
+.social-view-item__data {
   color: var(--font-color-2);
   font-size: 56px;
   font-weight: 700;
 }
-.social-view__data-label {
+.social-view-item__data-label {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 5px;
@@ -169,6 +181,71 @@ body {
 }
 .change--negative {
   color: var(--bright-red);
+}
+
+.overviews {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin-bottom: 44px;
+}
+.overviews__label {
+  font-size: 24px;
+  color: var(--font-color-1);
+  margin-bottom: 24px;
+}
+
+.overview-item {
+  cursor: pointer;
+  background-color: var(--card-bg-color);
+  width: 100%;
+  border-radius: 5px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "label logo" "data change";
+  gap: 1rem;
+}
+.overview-item:hover, .overview-item:focus {
+  background-color: var(--card-bg-color-hover);
+}
+.overview-item__label {
+  grid-area: label;
+  justify-self: left;
+  align-self: center;
+  color: var(--font-color-1);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.overview-item__logo {
+  grid-area: logo;
+  justify-self: right;
+  align-self: center;
+}
+.overview-item__data {
+  grid-area: data;
+  justify-self: left;
+  align-self: center;
+  color: var(--font-color-2);
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+.overview-item .change {
+  grid-area: change;
+  justify-self: right;
+  align-self: center;
+  padding: unset;
+}
+
+@media screen and (min-width: 540px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .header__title-section {
+    border: unset;
+  }
 }
 
 /*# sourceMappingURL=index.css.map */

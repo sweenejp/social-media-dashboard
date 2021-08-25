@@ -1,22 +1,19 @@
 # Frontend Mentor - Social media dashboard with theme switcher solution
 
-This is a solution to the [Social media dashboard with theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/social-media-dashboard-with-theme-switcher-6oY8ozp_H). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Social media dashboard with theme switcher challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/social-media-dashboard-with-theme-switcher-6oY8ozp_H). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+- [Frontend Mentor - Social media dashboard with theme switcher solution](#frontend-mentor---social-media-dashboard-with-theme-switcher-solution)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Screenshot](#screenshot)
+    - [Links](#links)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+  - [Author](#author)
 
 ## Overview
 
@@ -30,15 +27,9 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![](./screenshots/screenshot-desktop-light.png)
+<br>
+![](./screenshots/screenshot-mobile-dark.png)
 
 ### Links
 
@@ -47,66 +38,100 @@ Then crop/optimize/edit your image however you like, add it to your project, and
 
 ## My process
 
+Built with [React](https://reactjs.org). This is my first project built on my own with React. I also used [SASS](https://sass-lang.com/) and [BEM](http://getbem.com/) naming conventions.
+
 ### Built with
 
-- Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
 - CSS Grid
+- SASS
+- BEM
 - Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+There were two main challenges with this project. I challenged myself by pretending I was getting the data for this page from an API. I created a file called `socialData.js` that mimics an API call. I purposely structured the data so that it would be challenging to manipulate the data to fit the site's needs. So the challenge here was taking data out of `socialData.js` and creating new data objects (see `updatedData.js`) that I could then store in `App.js`'s state. I then passed each child component only the data they needed as props. I'm not positive if there was a better structure for this... maybe I didn't need to store everything in `App`'s state. But it seemed to work fine to make `App` the only class component.
 
-To see how you can add code snippets, see below:
+The other challenge was to create a theme switcher. I used custom css properties (css variables) stored in an object in a separate file. Here's a glimpse:
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+const themes = {
+  light: {
+    "--card-bg-color": "hsl(227, 47%, 96%)",
+    "--font-color-1": "hsl(228, 12%, 44%)",
+    "--font-color-2": "hsl(230, 17%, 14%)",
+    "--header-border-bottom": "hsl(230, 19%, 60%)",
+  },
+  dark: {
+    "--card-bg-color": "hsl(228, 28%, 20%)",
+    "--font-color-1": "hsl(228, 34%, 66%)",
+    "--font-color-2": "hsl(0, 0%, 100%)",
+    "--header-border-bottom": "hsl(228, 25%, 27%)",
+  },
+};
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+I stored all the "light" properties in my `index.css` file as well which served as the default values.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+I then stored the themes data in state and also assigned the `currentTheme` to "Light".
 
-### Continued development
+Okay, so there's probably a more "React" way to do this but here's how I handled switching the theme.
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+```js
+  themeSwitcher() {
+    if (this.state.currentTheme === "Light") {
+      let theme = this.state.themes.dark;
+      for (const property in theme) {
+        document.documentElement.style.setProperty(property, theme[property]);
+      }
+      this.setState({ currentTheme: "Dark" });
+    } else {
+      let theme = this.state.themes.light;
+      for (const property in theme) {
+        document.documentElement.style.setProperty(property, theme[property]);
+      }
+      this.setState({ currentTheme: "Light" });
+    }
+  }
+```
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+`docuement.documentElement.style.setProperty()` is vanilla js that takes a key, value (property, attribute) pair. I'm proud of how I wrote this to ensure that if I add new custom props to my `theme.js` file, this method automatically handles those.
 
-### Useful resources
+Finally, I think the switch button looks pretty slick! I ended up making this an scss mixin:
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+```scss
+@mixin switch($toggle-on, $toggle-off, $height) {
+  &__switch-outer {
+    border-radius: $height;
+    width: $height * 2;
+    height: $height;
+    border: none;
+    background: $toggle-on;
+    position: relative;
+    cursor: pointer;
+  }
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+  &__switch-inner {
+    width: $height * 0.75;
+    height: $height * 0.75;
+    border-radius: 50%;
+    background-color: $toggle-off;
+    position: absolute;
+    right: $height * 0.125;
+    top: $height * 0.125;
+    transition: all 250ms ease-in-out;
+
+    &--on {
+      transform: translateX(-$height);
+    }
+  }
+}
+```
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Website - [Jimmy Sweeney](https://jimmysweeney.page/)
+- Frontend Mentor - [@sweenejp](https://www.frontendmentor.io/profile/sweenejp)
+- [Github](https://github.com/sweenejp)
