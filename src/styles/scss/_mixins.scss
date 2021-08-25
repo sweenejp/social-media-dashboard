@@ -1,0 +1,25 @@
+@mixin switch($toggle-on, $toggle-off, $height) {
+  &__switch-outer {
+    border-radius: $height;
+    width: $height * 2;
+    height: $height;
+    border: none;
+    background: $toggle-on;
+    position: relative;
+  }
+
+  &__switch-inner {
+    width: $height * 0.75;
+    height: $height * 0.75;
+    border-radius: 50%;
+    background-color: $toggle-off;
+    position: absolute;
+    right: $height * 0.125;
+    top: $height * 0.125;
+    transition: all 250ms ease-in-out;
+
+    &--on {
+      transform: translateX(-$height);
+    }
+  }
+}
