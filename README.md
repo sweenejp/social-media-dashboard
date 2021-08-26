@@ -31,8 +31,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [](https://www.frontendmentor.io/solutions/social-media-dashboard-built-with-react-5UvBZV-Z3)
-- Live Site URL: [](https://jasweeney-social-media-dashboard.netlify.app/)
+- Solution URL: https://www.frontendmentor.io/solutions/social-media-dashboard-built-with-react-5UvBZV-Z3
+- Live Site URL: https://jasweeney-social-media-dashboard.netlify.app/
 
 ## My process
 
